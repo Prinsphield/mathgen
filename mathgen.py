@@ -8,9 +8,13 @@ Created on 25. 7. 2012.
 import urllib
 import re
 import sys
+from graphviz import Digraph
 
 prefix = "http://genealogy.math.ndsu.nodak.edu/id.php?id="
+prefix = "http://www.genealogy.ams.org/id.php?id="
 cache = {}
+
+dot = Digraph(comment='X''s academic genealogy')
 
 def get_page(url):
     try:
@@ -24,6 +28,10 @@ def remove_excess_space(s):
 
 def get_name(page):
     search_result = re.search(r'(.*)</h2>', page) 
+    return search_result.group(1) if search_result != None else ""
+
+def get_year(page):
+    search_result = re.search(r'(\d{4})</span>', page) 
     return search_result.group(1) if search_result != None else ""
 
 def get_advisor_ids(page):
@@ -41,9 +49,22 @@ def crawl(math_id):
     if math_id not in cache:
         page = get_page(prefix + math_id)
         name = remove_excess_space(get_name(page))
-        cache[math_id] = name
-        advisors_string = get_advisors_string([crawl(advisor_id) for advisor_id in get_advisor_ids(page)])
-        return name + advisors_string
+        year = remove_excess_space(get_year(page))
+        dot.node(str(math_id), name+"\n"+year)
+        cache[math_id] = name+"\n"+year
+        #advisors_string = get_advisors_string([crawl(advisor_id) for advisor_id in get_advisor_ids(page)])
+        #dot.render()
+        import time
+        time.sleep(2)
+
+        for advisor_id in get_advisor_ids(page):
+            print(advisor_id)
+
+        for advisor_id in get_advisor_ids(page):
+            dot.edge(str(advisor_id), str(math_id))
+            crawl(advisor_id)
+
+        #return name + advisors_string
     return cache[math_id]
     
 if __name__ == '__main__':
