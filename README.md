@@ -1,6 +1,17 @@
 mathgen
 =======
 
+Work in progress (WIP). 
+
+To-do: 
+
+1. Put a title in the final pdf/png. sth like "X Y's academic genealogy"
+1. Put a note in the final pdf/png which says "Generated from the Math Genealogy
+project using <this-repo>"
+1. Make the final output (pdf/png) so that it can be printed in a readible
+format. Right now, the whole tree is fit into a single page, which makes the
+fonts too small, unreadable. 
+
 A simple Python script for crawling the Mathematics Genealogy Project:
 
 http://genealogy.math.ndsu.nodak.edu/
