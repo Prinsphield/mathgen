@@ -17,9 +17,11 @@ from graphviz import Digraph
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-prefixes = ["http://genealogy.math.ndsu.nodak.edu/id.php?id=",
-        "http://www.genealogy.ams.org/id.php?id=", 
-        "http://genealogy.math.uni-bielefeld.de/id.php?id="]
+
+prefixes = ["http://genealogy.math.ndsu.nodak.edu/id.php?id="]
+# prefixes = ["http://genealogy.math.ndsu.nodak.edu/id.php?id=",
+#         "http://www.genealogy.ams.org/id.php?id=", 
+#         "http://genealogy.math.uni-bielefeld.de/id.php?id="]
 cache = {}
 
 dot = Digraph(node_attr={'shape': 'box'})
